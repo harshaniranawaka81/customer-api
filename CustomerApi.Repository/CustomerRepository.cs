@@ -1,9 +1,9 @@
-﻿using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Models;
-using System.Net;
+﻿using System.Net;
+using CustomerApi.Domain.Interfaces;
+using CustomerApi.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CustomerApi.Business.Repositories
+namespace CustomerApi.Repository
 {
     public class CustomerRepository : ICustomerRepository
     {

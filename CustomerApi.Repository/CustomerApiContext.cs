@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CustomerApi.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using CustomerApi.Business.Models;
 
-namespace CustomerApi.Business
+namespace CustomerApi.Repository
 {
     public class CustomerApiContext : DbContext
     {

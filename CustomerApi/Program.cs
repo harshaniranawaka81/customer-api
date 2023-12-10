@@ -1,9 +1,9 @@
 ﻿using CustomerApi.Business;
-using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Repositories;
 using CustomerApi.Business.Services;
 using CustomerApi.Business.Middleware;
 using Microsoft.EntityFrameworkCore;
+using CustomerApi.Repository;
+using CustomerApi.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CustomerApiContext>(

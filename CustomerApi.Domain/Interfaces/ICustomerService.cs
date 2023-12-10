@@ -1,13 +1,7 @@
-﻿using CustomerApi.Business.Models;
-using CustomerApi.Business.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CustomerApi.Domain.Models;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CustomerApi.Business.Interfaces
+namespace CustomerApi.Domain.Interfaces
 {
     public interface ICustomerService
     {

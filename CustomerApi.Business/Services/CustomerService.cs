@@ -1,13 +1,6 @@
-﻿using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CustomerApi.Domain.Interfaces;
+using CustomerApi.Domain.Models;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CustomerApi.Business.Services
 {

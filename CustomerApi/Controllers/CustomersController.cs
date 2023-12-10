@@ -1,5 +1,5 @@
-﻿using CustomerApi.Business.Interfaces;
-using CustomerApi.Business.Models;
+﻿using CustomerApi.Domain.Interfaces;
+using CustomerApi.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -17,7 +17,7 @@ namespace CustomerApi.Controllers
         /// Customer controller 
         /// </summary>
         /// <param name="CustomerService"></param>
-        public CustomersController(ILogger<CustomersController> logger, ICustomerService CustomerService)
+        public CustomersController(ICustomerService CustomerService)
         {
             _CustomerService = CustomerService;
         }
@@ -39,8 +39,9 @@ namespace CustomerApi.Controllers
             {
                 HttpStatusCode.OK => Ok(result.Value),
                 HttpStatusCode.NoContent => NoContent(),
-                HttpStatusCode.BadRequest => BadRequest()
-            };
+                HttpStatusCode.BadRequest => BadRequest(),
+                _ => throw new Exception("Internal Server Error!")
+            }; ;
         }
 
         /// <summary>
@@ -61,7 +62,8 @@ namespace CustomerApi.Controllers
             {
                 HttpStatusCode.OK => Ok(result.Value),
                 HttpStatusCode.NotFound => NotFound(),
-                HttpStatusCode.BadRequest => BadRequest()
+                HttpStatusCode.BadRequest => BadRequest(),
+                _ => throw new Exception("Internal Server Error!")
             };
         }
 
@@ -83,7 +85,8 @@ namespace CustomerApi.Controllers
             {
                 HttpStatusCode.Created => Created(string.Empty, result.Value),
                 HttpStatusCode.NoContent => NoContent(),
-                HttpStatusCode.BadRequest => BadRequest()
+                HttpStatusCode.BadRequest => BadRequest(),
+                _ => throw new Exception("Internal Server Error!"),
             };
         }
 
@@ -105,7 +108,8 @@ namespace CustomerApi.Controllers
             {
                 HttpStatusCode.OK => Ok(result.Value),
                 HttpStatusCode.NoContent => NoContent(),
-                HttpStatusCode.BadRequest => BadRequest()
+                HttpStatusCode.BadRequest => BadRequest(),
+                _ => throw new Exception("Internal Server Error!")
             };
         }
 
@@ -127,7 +131,8 @@ namespace CustomerApi.Controllers
             {
                 HttpStatusCode.NoContent => NoContent(),
                 HttpStatusCode.NotFound => NotFound(),
-                HttpStatusCode.BadRequest => BadRequest()
+                HttpStatusCode.BadRequest => BadRequest(),
+                _ => throw new Exception("Internal Server Error!")
             };
         }
     }
