@@ -19,7 +19,7 @@ namespace CustomerApi.Business.Services
 
            if (customers == null || customers.Count == 0)
            {
-               return new KeyValuePair<HttpStatusCode, List<Customer>>(HttpStatusCode.NotFound, new List<Customer>());
+               return new KeyValuePair<HttpStatusCode, List<Customer>>(HttpStatusCode.NoContent, new List<Customer>());
            }
 
            return new KeyValuePair<HttpStatusCode, List<Customer>>(HttpStatusCode.OK, customers);
@@ -47,9 +47,9 @@ namespace CustomerApi.Business.Services
             var updated = await _customerRepository.UpdateCustomer(id, customer);
 
             if(updated)
-                return new KeyValuePair<HttpStatusCode, bool>(HttpStatusCode.NoContent, updated);
+                return new KeyValuePair<HttpStatusCode, bool>(HttpStatusCode.OK, updated);
             else
-                return new KeyValuePair<HttpStatusCode, bool>(HttpStatusCode.NotFound, false);
+                return new KeyValuePair<HttpStatusCode, bool>(HttpStatusCode.NoContent, false);
         }
 
         public async Task<KeyValuePair<HttpStatusCode, Customer?>> SaveCustomer(Customer customer)
