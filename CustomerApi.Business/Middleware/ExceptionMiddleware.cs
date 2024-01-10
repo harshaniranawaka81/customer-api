@@ -1,44 +1,44 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CustomerApi.Domain.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
+using System.Net;
 
 namespace CustomerApi.Business.Middleware
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-
-        public ExceptionMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(context);
+                await _next(httpContext);
             }
             catch (Exception ex)
             {
-                // Log the exception (you can replace this with your own logging mechanism)
-                Console.WriteLine($"Exception: {ex.Message}");
-
-                // Return a JSON response with the error message
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = 500; // Internal Server Error
-
-                var response = new { error = ex.Message };
-                await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+                _logger.LogError($"Exception: {ex.Message}");
+                _logger.LogError($"Inner Exception: {ex.InnerException?.Message}");
+                _logger.LogError($"Stack Trace: {ex.StackTrace}");
+                await HandleExceptionAsync(httpContext, ex);
             }
         }
-    }
 
-    public static class ExceptionMiddlewareExtensions
-    {
-        public static IApplicationBuilder UseExceptionMiddleware(this IApplicationBuilder builder)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            return builder.UseMiddleware<ExceptionMiddleware>();
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "text/plain";
+            await context.Response.WriteAsync("An unexpected error occurred.");
         }
+
     }
 }

@@ -4,20 +4,22 @@ using CustomerApi.Business.Middleware;
 using Microsoft.EntityFrameworkCore;
 using CustomerApi.Repository;
 using CustomerApi.Domain.Interfaces;
+using CustomerApi.Business.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<CustomerApiContext>(
-                options => options.UseInMemoryDatabase("CustomerDb"));
+
+//Configure database
+builder.Services.ConfigureDb();
 
 // Add services to the container.
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-
+builder.Services.ConfigureServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddLogging();
 
 var app = builder.Build();
 
